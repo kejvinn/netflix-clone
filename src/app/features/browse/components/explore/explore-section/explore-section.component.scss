@@ -1,0 +1,143 @@
+$small: 500px;
+$medium: 900px;
+.explore-section {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: 0.5rem;
+	z-index: 2;
+	user-select: none;
+
+	@media screen and (max-width: $medium) {
+		gap: 0.1rem;
+	}
+
+	&-title {
+		font-size: 2rem;
+
+		@media screen and (max-width: $medium) {
+			font-size: 1.2rem;
+		}
+
+		@media screen and (max-width: $small) {
+			font-size: 0.8rem;
+		}
+
+		&.placeholder {
+			width: 10vw;
+			border-radius: 3rem;
+		}
+	}
+
+	&-items {
+		border-radius: 0.3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 3;
+		overflow-x: auto;
+		gap: 0.5rem;
+		height: 12rem;
+		padding: 0 0 0 1rem;
+		margin-left: -1rem;
+
+		@media screen and (max-width: $medium) {
+			height: 9rem;
+		}
+
+		@media screen and (max-width: $small) {
+			height: 6rem;
+		}
+
+		.items-single {
+			&:first-child {
+				margin-left: 1rem;
+			}
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 0.4rem;
+			width: 16rem;
+			height: 12rem;
+			transition: all 0.3s ease-in-out;
+
+			cursor: pointer;
+
+			@media screen and (max-width: $medium) {
+				width: 14rem;
+				height: 8rem;
+			}
+
+			@media screen and (max-width: $small) {
+				width: 8rem;
+				height: 5rem;
+			}
+
+			&-poster {
+				width: 16rem;
+				height: 10rem;
+				border-radius: 0.3rem;
+				object-fit: cover;
+				font-size: 2rem;
+				display: block;
+				z-index: 0;
+				justify-content: center;
+				align-items: center;
+				background-color: #141414;
+				@media screen and (max-width: $medium) {
+					width: 14rem;
+					height: 8rem;
+				}
+
+				@media screen and (max-width: $small) {
+					width: 8rem;
+					height: 5rem;
+				}
+			}
+
+			&-logo {
+				position: absolute;
+				filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+				top: 50%;
+				left: 50%;
+				width: 50%;
+				font-size: 1.5rem;
+				color: invert(1);
+				transform: translate(-50%, -50%);
+				z-index: 1;
+
+				@media screen and (max-width: $small) {
+					font-size: 0.8rem;
+				}
+			}
+
+			&:hover {
+				transform: scale(1.05);
+			}
+		}
+	}
+}
+
+.placeholder {
+	animation-duration: 5s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: linear;
+	background: #555;
+	background: linear-gradient(to right, #555 10%, #333 18%, #555 33%);
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -468px 0;
+	}
+
+	100% {
+		background-position: 468px 0;
+	}
+}

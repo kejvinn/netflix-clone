@@ -1,0 +1,90 @@
+$small: 500px;
+$medium: 900px;
+
+.login {
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	overflow: hidden;
+	position: sticky;
+	z-index: 0;
+	gap: 1rem;
+	@media screen and (max-width: $small) {
+		overflow: auto;
+	}
+	&-background_image {
+		background-size: cover;
+		display: block;
+		height: 100vh;
+		min-height: 100vh;
+		overflow: hidden;
+		position: fixed;
+		width: 100%;
+		opacity: 0.5;
+		z-index: -1;
+	}
+	&-header {
+		height: 7.5rem;
+		padding: 0 5rem;
+		@media screen and (max-width: $medium) {
+			height: 5rem;
+		}
+		&-logo {
+			display: flex;
+			margin: 0 auto;
+			@media screen and (max-width: $small) {
+				justify-content: center;
+			}
+			&-img {
+				height: 6rem;
+				@media screen and (max-width: $medium) and (min-width: $small) {
+					height: 5rem;
+				}
+			}
+		}
+	}
+	&-main {
+		flex-grow: 1;
+		display: flex;
+		justify-content: center;
+	}
+	&-footer {
+		text-wrap: nowrap;
+		height: 10rem;
+		background-color: #000;
+		color: #555;
+		opacity: 0.8;
+		padding: 2rem 0;
+		@media screen and (max-width: $small) {
+			overflow: scroll;
+		}
+		.nav {
+			width: 66%;
+			margin: 0 auto;
+			display: grid;
+			gap: 0.8rem;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(3, 1fr);
+			@media screen and (max-width: $medium) {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(5, 1fr);
+			}
+			@media screen and (max-width: $small) {
+				width: 50%;
+				grid-template-columns: 1fr;
+				grid-template-rows: repeat(7, 1fr);
+			}
+			&-contact {
+				color: #666;
+				font-size: 14px;
+				grid-column: 1 / -1;
+			}
+			&-item {
+				font-size: 12px;
+				color: #666;
+			}
+		}
+	}
+}

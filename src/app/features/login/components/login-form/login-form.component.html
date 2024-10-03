@@ -1,0 +1,57 @@
+<form class="login-form" (ngSubmit)="handleSubmit(form)" #form="ngForm">
+	<p class="login-form-title">Sign In</p>
+	<div class="login-form-container">
+		<label class="field">
+			<span class="field-label"> Email or phone number </span>
+			<input
+				class="field-input"
+				type="text"
+				name="email"
+				required
+				ngModel
+				#email="ngModel"
+			/>
+		</label>
+		@if (email.invalid && email.touched) {
+			<span class="field-error" *ngIf="email.errors?.['required']"
+				>Email is required.</span
+			>
+		}
+	</div>
+	<div class="login-form-container">
+		<label class="field">
+			<span class="field-label"> Password</span>
+			<input
+				class="field-input"
+				type="password"
+				name="password"
+				required
+				minlength="8"
+				ngModel
+				#password="ngModel"
+			/>
+		</label>
+		@if (password.invalid && password.touched) {
+			<span class="field-error" *ngIf="password.errors?.['required']"
+				>Password is required.</span
+			>
+			<span class="field-error" *ngIf="password.errors?.['minlength']"
+				>Password must be 8+ characters.</span
+			>
+		}
+	</div>
+	<button type="submit" class="login-form-button btn">Sign In</button>
+	<div class="login-form-options">
+		<div class="remember">
+			<label class="item">
+				<input type="checkbox" name="remember" ngModel />
+				Remember me
+			</label>
+			<a class="item" href="#">Need help?</a>
+		</div>
+		<div class="register">
+			<p>New to Netflix?</p>
+			<a class="register" href="#">Sign up now.</a>
+		</div>
+	</div>
+</form>

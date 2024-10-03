@@ -1,0 +1,12 @@
+{
+	"users": [
+		{
+			"id": "1",
+			"email": "kejvinbraka@gmail.com",
+			"password": "12345678",
+			"username": "kejvin",
+			"accessKey": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZWQzYTEyOGVjNTZmZjBjYzBlYjg3NmVmMjk2NmE0OSIsIm5iZiI6MTcyNzI1MjYxMC41MDEyNzYsInN1YiI6IjY2ZWQ3OTNmODJmNTYxOGQ5MGFkZWE1NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mraxm3F-KI-lWCgy_71tOk6dd_349kNJF8leVKnCBNs",
+			"pfp_url": "/profile.png"
+		}
+	]
+}
