@@ -1,16 +1,13 @@
 <div class="featured">
-	<div class="featured-gradient"></div>
-	@if (featured$ | async; as featured) {
-		@defer {
-			<img
-				src="{{
-					'https://image.tmdb.org/t/p/original' + featured?.backdrop_path
-				}}"
-				alt="featured poster"
-				class="featured-video"
-			/>
+  <div class="featured-gradient"></div>
+  @if (featured$ | async; as featured) {
+    <img
+      src="{{ featured.backdrop_path | tmdbImage: 'original' }}"
+      alt=""
+      class="featured-video"
+    />
 
-			<!-- <video
+    <!-- <video
           class="featured-video"
           [autoplay]="'autoplay'"
           [loop]="'loop'"
@@ -21,28 +18,27 @@
           <source src="assets/video/preview.mp4" type="video/mp4" />
         </video> -->
 
-			<div class="featured-overlay">
-				<div class="overlay-left">
-					<img
-						class="overlay-left-logo"
-						src="{{
-							'https://image.tmdb.org/t/p/original' + featured?.logo_url
-						}}"
-						alt="logo"
-					/>
-					<div class="overlay-left-buttons">
-						<button class="btn button play">
-							<ng-icon name="heroPlaySolid"></ng-icon>
-							Play
-						</button>
-						<button (click)="info()" class="btn button info">
-							<ng-icon name="heroInformationCircle"></ng-icon>
-							More Info
-						</button>
-					</div>
-				</div>
-				<div class="overlay-right">
-					<!-- <button
+    <div class="featured-overlay">
+      <div class="overlay-left">
+        <img
+          class="overlay-left-logo"
+          src="{{ featured.logo_url | tmdbImage: 'original' }}"
+          yy
+          alt="{{ featured | mediaTitle }}"
+        />
+        <div class="overlay-left-buttons">
+          <button class="btn button play">
+            <ng-icon name="heroPlaySolid"></ng-icon>
+            Play
+          </button>
+          <button (click)="openInfo()" class="btn button info">
+            <ng-icon name="heroInformationCircle"></ng-icon>
+            More Info
+          </button>
+        </div>
+      </div>
+      <div class="overlay-right">
+        <!-- <button
               class="overlay-right-audio btn"
               (click)="muteVideo(featuredVideo)"
             >
@@ -52,11 +48,10 @@
                 <ng-icon name="heroSpeakerWave"></ng-icon>
               }
             </button> -->
-					<div class="overlay-right-rating">
-						{{ featured?.adult ? "18+" : "7+" }}
-					</div>
-				</div>
-			</div>
-		}
-	}
+        <div class="overlay-right-rating">
+          {{ featured?.adult ? "18+" : "7+" }}
+        </div>
+      </div>
+    </div>
+  }
 </div>

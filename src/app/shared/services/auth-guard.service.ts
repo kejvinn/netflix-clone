@@ -1,40 +1,36 @@
-import { Injectable } from "@angular/core";
-import { CanActivate, Router } from "@angular/router";
-import { map, Observable, of } from "rxjs";
-import { CurrentUserService } from "./current-user.service";
-import { UserService } from "./user.service";
+import { inject, Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
-	providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-	constructor(
-		// private currentUserService: CurrentUserService,
-		private userService: UserService,
-		private router: Router,
-	) {}
+  userService = inject(UserService);
+  router = inject(Router);
 
-	canActivate(): Observable<boolean> {
-		return this.userService
-			.getFromAccessKey(localStorage.getItem("accessKey") || "")
-			.pipe(
-				map((user) => {
-					if (user === null) {
-						this.router.navigateByUrl("/login");
-						return false;
-					}
-					return true;
-				}),
-			);
-		// return this.currentUserService.currentUser$.pipe(
-		// 	filter((currentUser) => currentUser !== undefined),
-		// 	map((currentUser) => {
-		// 		if (!currentUser) {
-		// 			this.router.navigateByUrl("/login");
-		// 			return false;
-		// 		}
-		// 		return true;
-		// 	}),
-		// );
-	}
+  canActivate(): Observable<boolean> {
+    return this.userService
+      .getFromAccessKey(localStorage.getItem('accessKey') || '')
+      .pipe(
+        map((user) => {
+          if (user === null) {
+            this.router.navigateByUrl('/login');
+            return false;
+          }
+          return true;
+        }),
+      );
+    // return this.currentUserService.currentUser$.pipe(
+    // 	filter((currentUser) => currentUser !== undefined),
+    // 	map((currentUser) => {
+    // 		if (!currentUser) {
+    // 			this.router.navigateByUrl("/login");
+    // 			return false;
+    // 		}
+    // 		return true;
+    // 	}),
+    // );
+  }
 }

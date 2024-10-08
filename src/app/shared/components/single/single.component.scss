@@ -1,6 +1,3 @@
-$small: 500px;
-$medium: 900px;
-
 .single {
     position: absolute;
     top: 0;
@@ -9,7 +6,10 @@ $medium: 900px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
-    overflow: hidden;
+    overflow: none;
+    display: flex;
+    justify-content: center;
+    align-items: start;
 }
 
 .backdrop {
@@ -23,34 +23,51 @@ $medium: 900px;
 }
 
 .modal {
-    padding: 2rem 0;
-    position: fixed;
+    padding: 10rem 0 5rem 0;
+    position: absolute;
     display: flex;
-    align-items: flex-start;
+    align-items: start;
     justify-content: center;
-    overflow-y: scroll;
-    width: 100vw;
+    overflow: none;
+    width: 100%;
     height: 100%;
+    max-width: 900px;
     z-index: 11;
     border-radius: 0.5rem;
+
+    &-placeholder {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        img {
+            background: transparent;
+            border: none;
+            height: 5rem;
+            width: 5rem;
+        }
+    }
 
     &-content {
         position: relative;
         z-index: 11;
         background-color: #141414;
-        max-width: 900px;
         border-radius: 0.5rem;
+        width: 100%;
 
-        @media screen and (max-width: $medium) {
+        @media screen and (max-width: var(--medium)) {
             max-width: 500px;
         }
 
-        @media screen and (max-width: $small) {
+        @media screen and (max-width: var(--small)) {
             max-width: 300px;
         }
 
         display: flex;
         flex-direction: column;
+
+
 
         .close {
             position: absolute;
@@ -73,213 +90,26 @@ $medium: 900px;
             }
         }
 
-        .overview {
-            position: relative;
-            z-index: 11;
-            width: 100%;
-            border-radius: inherit;
-            aspect-ratio: 16 / 9;
-            border-radius: 0.5rem 0.5rem 0 0;
 
-            &-poster {
-                position: absolute;
-                border-top: inherit;
-                width: 100%;
-                aspect-ratio: 16 / 9;
-                object-fit: cover;
-                z-index: 11;
-                border-radius: 0.5rem 0.5rem 0 0;
-            }
-
-            &-gradient {
-                position: absolute;
-                top: 0;
-                left: 0;
-                border-radius: inherit;
-                width: inherit;
-                aspect-ratio: 16 / 9;
-                z-index: 12;
-                background-image: linear-gradient(to bottom, transparent, #141414);
-                border-radius: 0.5rem 0.5rem 0 0;
-            }
-
-            &-overlay {
-                position: absolute;
-                top: 0;
-                border-radius: inherit;
-                width: inherit;
-                aspect-ratio: 16 / 9;
-                z-index: 13;
-                display: flex;
-                align-items: flex-end;
-                padding-bottom: 10%;
-                padding-left: 4rem;
-
-                .overlay-left {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1rem;
-
-                    &-logo {
-                        width: 20rem;
-                        height: auto;
-
-                        @media screen and (max-width: $medium) {
-                            width: 15rem;
-                        }
-
-                        @media screen and (max-width: $small) {
-                            width: 7rem;
-                        }
-                    }
-
-                    &-buttons {
-                        display: flex;
-                        gap: 0.5rem;
-
-                        .button {
-                            z-index: 4;
-                            display: flex;
-                            border: none;
-                            align-items: center;
-                            justify-content: center;
-                            height: 3rem;
-                            padding: 0 1.5rem;
-                            font-weight: bold;
-                            cursor: pointer;
-                            font-size: 1.2rem;
-                            border-radius: 0.3rem;
-
-                            @media screen and (max-width: $medium) {
-                                font-size: 1rem;
-                                height: 2.5rem;
-                                padding: 0rem 1rem;
-                            }
-
-                            @media screen and (max-width: $small) {
-                                font-size: 0.8rem;
-                                height: 1.5rem;
-                                padding: 0rem 1rem;
-                            }
-
-                            ng-icon {
-                                height: 2.2rem;
-                                width: 2.2rem;
-                                margin-right: 0.3rem;
-
-                                @media screen and (max-width: $medium) {
-                                    height: 1rem;
-                                    width: 1rem;
-                                }
-
-                                @media screen and (max-width: $small) {
-                                    height: 1rem;
-                                    width: 1rem;
-                                }
-                            }
-                        }
-
-                        .button-circle {
-                            height: 2.5rem;
-                            width: 2.5rem;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: #fff;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            border: 1px solid #fff;
-                            border-radius: 100%;
-                            cursor: pointer;
-
-                            ng-icon {
-                                height: 1.5rem;
-                                width: 1.5rem;
-
-                                @media screen and (max-width: $medium) {
-                                    height: 1rem;
-                                    width: 1rem;
-                                }
-
-                                @media screen and (max-width: $small) {
-                                    height: 1rem;
-                                    width: 1rem;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .overlay-right {
-                    flex-grow: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    p {
-                        padding: 0 10rem;
-                        font-size: 1.5rem;
-                    }
-                }
-            }
-        }
-
-        .details {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-            padding: 3rem;
-
-            &-description {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                grid-column: 1/ span 2;
-            }
-
-            &-more {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                grid-column: 3/ span 1;
-            }
-        }
-
-        .recommended {
+        .recommendations {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1rem;
             padding: 3rem;
             grid-column: span 3;
 
-            &-item {
-                background-color: rgba(25, 25, 25, 0.7);
-                grid-column: span 1;
+            @media screen and (max-width: var(--medium)) {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
 
-                &-poster {
-                    position: relative;
-                    width: 100%;
-
-                    &-backdrop {
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        aspect-ratio: 16 / 9;
-                        object-fit: cover;
-                    }
-
-                    &-logo {
-                        position: absolute;
-                        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
-                        top: 50%;
-                        left: 50%;
-                        width: 50%;
-                        font-size: 1.5rem;
-                        color: invert(1);
-                        transform: translate(-50%, -50%);
-                        z-index: 1;
-                    }
-                }
+            @media screen and (max-width: var(--small)) {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
+
+
     }
+
 }

@@ -1,5 +1,5 @@
-$small: 500px;
 $medium: 700px;
+
 .header {
 	display: grid;
 	grid-template-columns: 12rem 4fr 1fr 1.5rem 1.5rem;
@@ -11,23 +11,29 @@ $medium: 700px;
 	position: absolute;
 	top: 0;
 	width: 100vw;
-	@media screen and (max-width: $medium) {
+
+	@media screen and (max-width: var(--medium)) {
 		height: 3rem;
 		justify-items: stretch;
 		grid-template-rows: 2fr;
 	}
-	@media screen and (max-width: $small) {
+
+	@media screen and (max-width: var(--small)) {
 		height: 2.5rem;
 	}
+
 	&-logo {
 		display: flex;
 		justify-content: center;
+
 		&-img {
 			height: 4.5rem;
-			@media screen and (max-width: $medium) {
+
+			@media screen and (max-width: var(--medium)) {
 				height: 3.5rem;
 			}
-			@media screen and (max-width: $small) {
+
+			@media screen and (max-width: var(--small)) {
 				height: 2.5rem;
 			}
 		}
@@ -37,19 +43,22 @@ $medium: 700px;
 		display: flex;
 		width: 100%;
 		gap: 1rem;
-		@media screen and (max-width: $medium) {
+
+		@media screen and (max-width: var(--medium)) {
 			padding: 0 3rem;
 			gap: 1rem;
 			justify-content: space-between;
 			width: calc(100vw - 2rem);
 			grid-row: 2 / span 5;
 		}
-		@media screen and (max-width: $small) {
+
+		@media screen and (max-width: var(--small)) {
 			padding: 0 1rem;
 			width: 100vw;
 			overflow: scroll;
 			scrollbar-width: none;
 			-ms-overflow-style: none;
+
 			::-webkit-scrollbar {
 				display: none;
 			}
@@ -59,38 +68,48 @@ $medium: 700px;
 			font-size: 1.2rem;
 			text-decoration: none;
 			text-wrap: nowrap;
-			@media screen and (max-width: $small) {
+
+			@media screen and (max-width: var(--small)) {
 				font-size: 16px;
 			}
+
 			&.active {
 				font-weight: bold;
 			}
 		}
 	}
+
 	&-search {
 		width: 100%;
 		grid-column: 3;
 	}
+
 	&-notification {
 		grid-column: 4;
 	}
+
 	&-user {
 		grid-column: 5;
+
 		img {
 			height: 1.5rem;
 		}
 	}
+
 	&-notification,
 	&-user {
 		height: 1.5rem;
+
 		&:hover {
 			cursor: pointer;
 			transform: scale(1.05);
 		}
+
 		ng-icon {
 			height: 1.5rem;
 			width: 1.5rem;
-			@media screen and (max-width: $medium) {
+
+			@media screen and (max-width: var(--medium)) {
 				height: 1rem;
 			}
 		}

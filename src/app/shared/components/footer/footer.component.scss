@@ -1,83 +1,101 @@
-$small: 500px;
-$medium: 900px;
 .footer {
 	min-width: 900px;
 	width: 80%;
 	margin: 0 auto;
 	padding: 0 2rem;
 	background-color: #141414;
-	@media screen and (max-width: $medium) {
+
+	@media screen and (max-width: var(--medium)) {
 		padding: 0 2rem;
 	}
-	@media screen and (max-width: $medium) {
+
+	@media screen and (max-width: var(--medium)) {
 		min-width: 500px;
 	}
-	@media screen and (max-width: $small) {
+
+	@media screen and (max-width: var(--small)) {
 		min-width: 300px;
 	}
+
 	&-socials {
 		display: flex;
 		margin: 1rem 0;
 		padding: 1rem 0.5rem;
 		gap: 2.3rem;
-		@media screen and (max-width: $medium) {
+
+		@media screen and (max-width: var(--medium)) {
 			gap: 1.5rem;
 		}
+
 		a {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+
 			ng-icon {
 				height: 1.8rem;
 				width: 1.8rem;
-				@media screen and (max-width: $medium) {
+
+				@media screen and (max-width: var(--medium)) {
 					height: 1.5rem;
 					width: 1.5rem;
 				}
 			}
 		}
 	}
+
 	&-nav {
 		display: grid;
 		margin: 1rem 0 2rem;
 		gap: 1rem;
 		grid-template-columns: repeat(4, 1fr);
-		@media screen and (max-width: $medium) {
+
+		@media screen and (max-width: var(--medium)) {
 			grid-template-columns: repeat(3, 1fr);
 			gap: 0.5rem;
 		}
-		@media screen and (max-width: $small) {
+
+		@media screen and (max-width: var(--small)) {
 			grid-template-columns: repeat(2, 1fr);
 			gap: 0.8rem;
 		}
+
 		a {
 			color: #888;
-			@media screen and (max-width: $medium) {
+
+			@media screen and (max-width: var(--medium)) {
 				font-size: 0.8rem;
 			}
-			@media screen and (max-width: $small) {
+
+			@media screen and (max-width: var(--small)) {
 				font-size: 0.6rem;
 			}
 		}
 	}
+
 	&-service_code {
 		color: #888;
 		padding: 0.5rem 1rem;
 		border: 1px solid #888;
-		@media screen and (max-width: $medium) {
+
+		@media screen and (max-width: var(--medium)) {
 			font-size: 0.8rem;
 		}
-		@media screen and (max-width: $small) {
+
+		@media screen and (max-width: var(--small)) {
 			font-size: 0.6rem;
 		}
 	}
+
 	&-signature {
 		margin: 2rem 0;
 		color: #888;
-		@media screen and (max-width: $medium) {
+
+		@media screen and (max-width: var(--medium)) {
 			font-size: 0.8rem;
 		}
-		@media screen and (max-width: $small) {
+
+		@media screen and (max-width: var(--small)) {
 			font-size: 0.6rem;
 		}
 	}

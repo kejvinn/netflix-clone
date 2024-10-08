@@ -1,126 +1,70 @@
-@if (singleService.showModal() === true) {
+@if (singleService.showModal()) {
   <div class="single">
     <div class="backdrop" (click)="singleService.close()"></div>
-    <div class="modal">
-      <div class="modal-content">
-        <button class="close" (click)="singleService.close()">
-          <ng-icon name="heroXMark"></ng-icon>
-        </button>
-        <div class="overview">
-          <div class="overview-gradient"></div>
-          <img
-            class="overview-poster"
-            src="{{
-              singleService.media()?.backdrop_path
-                ? 'https://image.tmdb.org/t/p/original' +
-                  singleService.media()?.backdrop_path
-                : ''
-            }}"
-            alt="poster"
-          />
-          <div class="overview-overlay">
-            <div class="overlay-left">
-              <img
-                class="overlay-left-logo"
-                src="{{
-                  singleService.media()?.logo_url
-                    ? 'https://image.tmdb.org/t/p/original' +
-                      singleService.media()?.logo_url
-                    : ''
-                }}"
-                alt="logo"
-              />
-              <div class="overlay-left-buttons">
-                <button class="btn button">
-                  <ng-icon name="heroPlaySolid"></ng-icon>
-                  Play
-                </button>
-                <button class="button-circle">
-                  <ng-icon name="heroPlus"></ng-icon>
-                </button>
-                <button class="button-circle">
-                  <ng-icon name="heroHandThumbUp"></ng-icon>
-                </button>
-              </div>
-            </div>
-            <div class="overlay-right">
-              @if (singleService.media()?.tagline) {
-                <p>{{ singleService.media()?.tagline }}</p>
+    @defer (when singleService.media()) {
+      @if (singleService.media() !== null) {
+        <div class="modal">
+          <div class="modal-content">
+            <button class="close" (click)="singleService.close()">
+              <ng-icon name="heroXMark"></ng-icon>
+            </button>
+            <app-overview
+              [backdrop]="
+                singleService.media()?.backdrop_path | tmdbImage: 'original'
+              "
+              [logo]="singleService.media()?.logo_url | tmdbImage: 'original'"
+              [alt]="singleService.media() | mediaTitle"
+              [tagline]="singleService.media()?.tagline"
+            ></app-overview>
+            <app-details
+              [releaseDate]="
+                singleService.media()?.release_date | releaseDateFormat
+              "
+              [seasonsCount]="
+                singleService.media()?.number_of_seasons | numberOfSeasonsFormat
+              "
+              [runtime]="singleService.media()?.runtime | runtimeFormat"
+              [rating]="singleService.media()?.adult ? '16+' : 'E'"
+              [cast]="singleService.media()?.cast"
+              [genres]="singleService.media()?.genres"
+              [overview]="singleService.media()?.overview"
+            ></app-details>
+
+            <div class="recommendations">
+              @for (
+                rec of singleService.media()?.recommendations | slice: 0 : 15;
+                track rec.id
+              ) {
+                @defer {
+                  <app-recommendation
+                    (click)="openInfo(rec)"
+                    [backdrop]="rec.backdrop_path | tmdbImage: 'w500'"
+                    [logo]="rec.logo_url | tmdbImage: 'w200'"
+                    [alt]="rec | mediaTitle"
+                    [releaseDate]="rec.release_date | releaseDateFormat"
+                    [rating]="rec.adult ? '+16' : 'E'"
+                    [overview]="rec.overview"
+                    (info)="openInfo($event)"
+                  ></app-recommendation>
+                }
               }
             </div>
+            <app-credits
+              [title]="singleService.media() | mediaTitle"
+              [cast]="singleService.media()?.cast"
+              [genres]="singleService.media()?.genres"
+            ></app-credits>
           </div>
         </div>
-        <div class="details">
-          <div class="details-description">
-            <div>
-              <p>{{ singleService.media()?.release_date }}</p>
-            </div>
-            <p>{{ singleService.media()?.overview }}</p>
-          </div>
-          <div class="details-more">
-            <p class="cast">
-              <span style="color: #555">Cast:</span>
-              <span>
-                @for (
-                  member of singleService.media()?.cast | slice: 0 : 5;
-                  track member.id
-                ) {
-                  {{ member.name }},
-                }
-              </span>
-              <span style="font-style: italic">more</span>
-            </p>
-            <p class="genres">
-              <span style="color: #555">Genres:</span>
-              <span>
-                @for (
-                  genre of singleService.media()?.genres | slice: 0 : 5;
-                  let last = $last;
-                  track genre.id
-                ) {
-                  @if (!last) {
-                    {{ genre.name }},
-                  } @else {
-                    {{ genre.name }}.
-                  }
-                }
-              </span>
-            </p>
-            <p class="release"></p>
-          </div>
+      } @else {
+        <div class="modal-placeholder">
+          <img src="assets/gif/loading.gif" alt="placeholder" />
         </div>
-        <div class="recommended">
-          @for (
-            rec of singleService.media()?.recommendations | slice: 0 : 5;
-            track rec.id
-          ) {
-            <div class="recommended-item">
-              <div class="recommended-item-poster">
-                <img
-                  class="recommended-item-poster-backdrop"
-                  loading="lazy"
-                  decode="async"
-                  src="https://image.tmdb.org/t/p/w500{{ rec.backdrop_path }}"
-                  alt=""
-                />
-                <img
-                  class="recommended-item-poster-logo"
-                  loading="lazy"
-                  decode="async"
-                  src="https://image.tmdb.org/t/p/w200{{ rec.logo_url }}"
-                  alt="{{ rec.title }}"
-                />
-              </div>
-              <div class="recommended-item-info"></div>
-              <p class="item-release">{{ rec.release_date }}</p>
-              <button class="button-circle">
-                <ng-icon name="heroPlus"></ng-icon>
-              </button>
-            </div>
-          }
-        </div>
-        <div class="credits"></div>
+      }
+    } @placeholder {
+      <div class="modal-placeholder">
+        <img src="assets/gif/loading.gif" alt="placeholder" />
       </div>
-    </div>
+    }
   </div>
 }

@@ -1,0 +1,35 @@
+<div class="rec">
+  <div class="rec-poster">
+    <img
+      class="rec-poster-backdrop"
+      loading="lazy"
+      decode="async"
+      src="{{ backdrop }}"
+      alt=""
+    />
+    <img
+      class="rec-poster-logo"
+      loading="lazy"
+      decode="async"
+      src="{{ logo }}"
+      alt="{{ alt }}"
+    />
+    <span class="rec-poster-date">
+      {{ releaseDate }}
+    </span>
+  </div>
+  <div class="rec-info">
+    <div class="joined">
+      <p class="rating">{{ rating }}</p>
+      <p class="release">
+        {{ releaseDate }}
+      </p>
+    </div>
+    <button class="button-circle">
+      <ng-icon name="heroPlus"></ng-icon>
+    </button>
+  </div>
+  <p class="rec-desc">
+    {{ overview || "" }}
+  </p>
+</div>

@@ -1,5 +1,6 @@
 export interface ExploreSection {
-	title: string;
-	type: string;
-	period: string;
+  title: string;
+  listType: string;
+  mediaType: string;
+  period: string;
 }

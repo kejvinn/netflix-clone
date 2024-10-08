@@ -1,19 +1,19 @@
-import { Injectable, signal } from "@angular/core";
-import { TMDBService } from "../../../shared/services/tmdb.service";
-import { Media } from "../../../shared/models/media.model";
+import { Injectable, signal } from '@angular/core';
+import { TMDBService } from '../../../shared/services/tmdb.service';
+import { Media } from '../../../shared/models/media.model';
 
 @Injectable({
-	providedIn: "root",
+  providedIn: 'root',
 })
 export class SearchService {
-	searchQuery = signal<string>("");
-	searchResults = signal<Media[]>([]);
+  searchQuery = signal<string>('');
+  searchResults = signal<Media[]>([]);
 
-	constructor(private tmdbService: TMDBService) {}
+  constructor(private tmdbService: TMDBService) {}
 
-	search(query: string) {
-		this.tmdbService
-			.getSearchResultsWithLogo(query)
-			.subscribe((results) => this.searchResults.set(results));
-	}
+  search(query: string) {
+    this.tmdbService
+      .getSearchResults(query, true)
+      .subscribe((results) => this.searchResults.set(results));
+  }
 }
