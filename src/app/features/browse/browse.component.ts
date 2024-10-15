@@ -12,13 +12,12 @@ import { ExploreComponent } from './components/explore/explore.component';
     <app-explore></app-explore>
   </div>`,
   styles: `
+    .browse {
+      background: #141414;
+    }
     app-featured {
-      background-color: #000;
       position: relative;
       z-index: 2;
-      @media screen and (max-width: var(--medium)) {
-        padding-top: 3.5rem;
-      }
     }
     app-explore {
       position: relative;

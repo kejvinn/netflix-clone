@@ -1,38 +1,31 @@
 @if (singleService.showModal()) {
   <div class="single">
     <div class="backdrop" (click)="singleService.close()"></div>
-    @defer (when singleService.media()) {
-      @if (singleService.media() !== null) {
+    @if (singleService.media(); as single) {
+      @defer {
         <div class="modal">
           <div class="modal-content">
             <button class="close" (click)="singleService.close()">
               <ng-icon name="heroXMark"></ng-icon>
             </button>
             <app-overview
-              [backdrop]="
-                singleService.media()?.backdrop_path | tmdbImage: 'original'
-              "
-              [logo]="singleService.media()?.logo_url | tmdbImage: 'original'"
-              [alt]="singleService.media() | mediaTitle"
-              [tagline]="singleService.media()?.tagline"
+              [backdrop]="single.backdrop_path | tmdbImage: 'original'"
+              [logo]="single.logo_url | tmdbImage: 'original'"
+              [alt]="single | mediaTitle"
+              [tagline]="single.tagline"
             ></app-overview>
             <app-details
-              [releaseDate]="
-                singleService.media()?.release_date | releaseDateFormat
-              "
-              [seasonsCount]="
-                singleService.media()?.number_of_seasons | numberOfSeasonsFormat
-              "
-              [runtime]="singleService.media()?.runtime | runtimeFormat"
-              [rating]="singleService.media()?.adult ? '16+' : 'E'"
-              [cast]="singleService.media()?.cast"
-              [genres]="singleService.media()?.genres"
-              [overview]="singleService.media()?.overview"
+              [releaseDate]="single | releaseDateFormat"
+              [runtime]="single | runtimeFormat"
+              [rating]="single.adult ? '16+' : 'E'"
+              [cast]="single.cast"
+              [genres]="single.genres"
+              [overview]="single.overview"
             ></app-details>
 
             <div class="recommendations">
               @for (
-                rec of singleService.media()?.recommendations | slice: 0 : 15;
+                rec of single.recommendations | slice: 0 : 15;
                 track rec.id
               ) {
                 @defer {
@@ -41,7 +34,8 @@
                     [backdrop]="rec.backdrop_path | tmdbImage: 'w500'"
                     [logo]="rec.logo_url | tmdbImage: 'w200'"
                     [alt]="rec | mediaTitle"
-                    [releaseDate]="rec.release_date | releaseDateFormat"
+                    [releaseDate]="rec | releaseDateFormat"
+                    [voteAverage]="rec.vote_average.toPrecision(2)"
                     [rating]="rec.adult ? '+16' : 'E'"
                     [overview]="rec.overview"
                     (info)="openInfo($event)"
@@ -50,18 +44,14 @@
               }
             </div>
             <app-credits
-              [title]="singleService.media() | mediaTitle"
-              [cast]="singleService.media()?.cast"
-              [genres]="singleService.media()?.genres"
+              [title]="single | mediaTitle"
+              [cast]="single.cast"
+              [genres]="single.genres"
             ></app-credits>
           </div>
         </div>
-      } @else {
-        <div class="modal-placeholder">
-          <img src="assets/gif/loading.gif" alt="placeholder" />
-        </div>
       }
-    } @placeholder {
+    } @else {
       <div class="modal-placeholder">
         <img src="assets/gif/loading.gif" alt="placeholder" />
       </div>

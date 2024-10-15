@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Media } from '../models/media.model';
-import { forkJoin, map, mergeMap, Observable } from 'rxjs';
+import { forkJoin, iif, map, mergeMap, Observable, of } from 'rxjs';
 import { VideoDto } from '../dto/video-dto.model';
 import { ImageDto } from '../dto/image-dto.model';
 import { CastMember } from '../models/cast-member.model';
@@ -11,7 +11,6 @@ import { CastMember } from '../models/cast-member.model';
 })
 export class TMDBService {
   private apiUrl = 'https://api.themoviedb.org/3';
-  // private accessKey = '3ed3a128ec56ff0cc0eb876ef2966a49';
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +23,6 @@ export class TMDBService {
     if (listType === 'trending') {
       return this.getTrending(mediaType, period, withLogos);
     } else if (listType === 'top_rated') {
-      console.log(listType, mediaType, withLogos);
-
       return this.getTopRated(mediaType, withLogos);
     } else {
       return new Observable<Media[]>();
@@ -33,21 +30,23 @@ export class TMDBService {
   }
 
   getTrending(
-    MediaType: string,
+    mediaType: string,
     period: string,
     withLogos: boolean = false,
   ): Observable<Media[]> {
     return this.http
       .get<{
         results: Media[];
-      }>(`${this.apiUrl}/trending/${MediaType}/${period}`)
+      }>(`${this.apiUrl}/trending/${mediaType}/${period}`)
       .pipe(
-        map((data) => data.results),
-        withLogos
-          ? mergeMap((list: Media[]) =>
-              forkJoin(list.map((media: Media) => this.setMediaLogo(media))),
-            )
-          : (data) => data,
+        map((data) => data?.results),
+        mergeMap((list: Media[]) =>
+          iif(
+            () => withLogos,
+            forkJoin(list.map((media: Media) => this.setMediaLogo(media))),
+            of(list),
+          ),
+        ),
       );
   }
 
@@ -61,15 +60,17 @@ export class TMDBService {
       }>(`${this.apiUrl}/${mediaType}/top_rated`)
       .pipe(
         map((data) => data.results),
-        withLogos
-          ? mergeMap((list: Media[]) =>
-              forkJoin(
-                list.map((media: Media) =>
-                  this.setMediaLogo({ ...media, media_type: mediaType }),
-                ),
+        mergeMap((list: Media[]) =>
+          iif(
+            () => withLogos,
+            forkJoin(
+              list.map((media: Media) =>
+                this.setMediaLogo({ ...media, media_type: mediaType }),
               ),
-            )
-          : (data) => data,
+            ),
+            of(list),
+          ),
+        ),
       );
   }
 
@@ -162,7 +163,7 @@ export class TMDBService {
         }),
       );
   }
-  setMediaRecommendations(media: Media) {
+  setMediaRecommendations(media: Media, withLogos: boolean = false) {
     return this.http
       .get<{
         results: Media[];
@@ -170,8 +171,16 @@ export class TMDBService {
         `${this.apiUrl}/${media.media_type}/${media.id}/recommendations?language=en`,
       )
       .pipe(
-        map((data) => {
-          media.recommendations = data.results;
+        map((recs: { results: Media[] }) => recs.results),
+        mergeMap((recs: Media[]) =>
+          iif(
+            () => withLogos,
+            forkJoin(recs.map((media: Media) => this.setMediaLogo(media))),
+            of(recs),
+          ),
+        ),
+        map((recs: Media[]) => {
+          media.recommendations = recs;
           return media;
         }),
       );

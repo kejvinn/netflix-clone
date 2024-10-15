@@ -28,6 +28,7 @@ import { SingleComponent } from './shared/components/single/single.component';
     app-header {
       z-index: 3;
     }
+
     app-footer {
       margin-top: 5rem;
     }

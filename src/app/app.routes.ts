@@ -26,14 +26,6 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuardService],
   },
-  // {
-  // 	path: "single",
-  // 	loadComponent: () =>
-  // 		import("./features/single/single.component").then(
-  // 			(m) => m.SingleComponent,
-  // 		),
-  // 	canActivate: [AuthGuardService],
-  // },
 
   { path: '**', redirectTo: 'login' },
 ];

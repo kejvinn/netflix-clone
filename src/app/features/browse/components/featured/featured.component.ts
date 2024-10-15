@@ -1,11 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { Component, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   heroInformationCircle,
   heroSpeakerWave,
   heroSpeakerXMark,
 } from '@ng-icons/heroicons/outline';
-import { heroPlaySolid } from '@ng-icons/heroicons/solid';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TMDBService } from '../../../../shared/services/tmdb.service';
@@ -13,15 +12,22 @@ import { Media } from '../../../../shared/models/media.model';
 import { SingleService } from '../../../../shared/services/single.service';
 import { TmdbImagePipe } from '../../../../shared/pipes/tmdb-image.pipe';
 import { MediaTitlePipe } from '../../../../shared/pipes/media-title.pipe';
+import { PlayButtonComponent } from '../../../../shared/components/play-button.component';
+import { InfoButtonComponent } from '../../../../shared/components/info-button.component';
 
 @Component({
   selector: 'app-featured',
   standalone: true,
-  imports: [NgIconComponent, CommonModule, TmdbImagePipe, MediaTitlePipe],
+  imports: [
+    NgIcon,
+    CommonModule,
+    TmdbImagePipe,
+    MediaTitlePipe,
+    PlayButtonComponent,
+    InfoButtonComponent,
+  ],
   providers: [
-    TMDBService,
     provideIcons({
-      heroPlaySolid,
       heroInformationCircle,
       heroSpeakerWave,
       heroSpeakerXMark,
@@ -30,19 +36,17 @@ import { MediaTitlePipe } from '../../../../shared/pipes/media-title.pipe';
   templateUrl: './featured.component.html',
   styleUrl: './featured.component.scss',
 })
-export class FeaturedComponent implements OnInit {
-  constructor(private tmdbService: TMDBService) {}
-
+export class FeaturedComponent {
+  tmdbService = inject(TMDBService);
   singleService = inject(SingleService);
 
-  featured$: Observable<Media> = new Observable<Media>();
+  featured$: Observable<Media> = this.tmdbService.getFeaturedMedia(
+    'all',
+    'day',
+  );
 
-  ngOnInit() {
-    this.featured$ = this.tmdbService.getFeaturedMedia('all', 'day');
-  }
-
-  openInfo() {
-    this.featured$.subscribe((media) => this.singleService.open(media));
+  openInfo(featured: Media) {
+    this.singleService.open(featured);
   }
 
   muteVideo(video: HTMLVideoElement) {

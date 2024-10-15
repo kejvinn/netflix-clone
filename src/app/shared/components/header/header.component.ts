@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBell } from '@ng-icons/heroicons/outline';
-import { UserMenuComponent } from './ui/user-menu/user-menu.component';
-import { SearchbarComponent } from './ui/searchbar/searchbar.component';
+import { SearchbarComponent } from './ui/searchbar.component';
+import { UserMenuComponent } from './ui/user-menu.component';
 
 @Component({
   selector: 'app-header',

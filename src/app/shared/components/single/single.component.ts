@@ -6,7 +6,6 @@ import {
   heroXMark,
 } from '@ng-icons/heroicons/outline';
 import { Media } from '../../models/media.model';
-import { Observable } from 'rxjs';
 import { SingleService } from '../../services/single.service';
 import { heroPlaySolid } from '@ng-icons/heroicons/solid';
 import { CommonModule } from '@angular/common';
@@ -43,11 +42,11 @@ import { MediaTitlePipe } from '../../pipes/media-title.pipe';
   styleUrl: './single.component.scss',
 })
 export class SingleComponent {
-  Media: Observable<Media> = new Observable<Media>();
-
   singleService = inject(SingleService);
 
   openInfo(media: Media) {
+    console.log(media);
+
     this.singleService.open(media);
   }
 }

@@ -1,29 +1,30 @@
+<div class="header-background"></div>
 <div class="header">
-	<div class="header-logo">
-		<img class="header-logo-img" src="assets/img/logo.png" alt="logo" />
-	</div>
-	<div class="header-nav">
-		<a
-			class="header-nav-item"
-			[routerLinkActive]="'active'"
-			routerLink="/browse"
-			>Home</a
-		>
-		<a class="header-nav-item" [routerLinkActive]="'active'" href="#"
-			>TV Shows</a
-		>
-		<a class="header-nav-item" [routerLinkActive]="'active'" href="#">Movies</a>
-		<a class="header-nav-item" [routerLinkActive]="'active'" href="#">Latest</a>
-		<a class="header-nav-item" [routerLinkActive]="'active'" href="#"
-			>My List</a
-		>
-		<a class="header-nav-item" [routerLinkActive]="'active'" href="#"
-			>Browse By Language</a
-		>
-	</div>
-	<app-searchbar class="header-search"></app-searchbar>
-	<div class="header-notification">
-		<ng-icon name="heroBell"></ng-icon>
-	</div>
-	<app-user-menu class="header-user"> </app-user-menu>
+  <div class="header-logo">
+    <img class="header-logo-img" src="assets/img/logo.png" alt="logo" />
+  </div>
+  <div class="header-nav">
+    <a
+      class="header-nav-item"
+      [routerLinkActive]="'active'"
+      routerLink="/browse"
+      >Home</a
+    >
+    <a class="header-nav-item" [routerLinkActive]="'active'" href="#"
+      >TV Shows</a
+    >
+    <a class="header-nav-item" [routerLinkActive]="'active'" href="#">Movies</a>
+    <a class="header-nav-item" [routerLinkActive]="'active'" href="#">Latest</a>
+    <a class="header-nav-item" [routerLinkActive]="'active'" href="#"
+      >My List</a
+    >
+    <a class="header-nav-item" [routerLinkActive]="'active'" href="#"
+      >Browse By Language</a
+    >
+  </div>
+  <app-searchbar class="header-search"></app-searchbar>
+  <div class="header-notification">
+    <ng-icon name="heroBell"></ng-icon>
+  </div>
+  <app-user-menu class="header-user"></app-user-menu>
 </div>

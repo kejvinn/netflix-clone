@@ -22,7 +22,6 @@ import { Genre } from '../../../../models/genre.model';
 })
 export class DetailsComponent {
   @Input() releaseDate!: string;
-  @Input() seasonsCount!: string;
   @Input() runtime!: string;
   @Input() rating!: string;
   @Input() overview!: string | undefined;

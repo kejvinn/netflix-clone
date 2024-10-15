@@ -27,14 +27,8 @@
           alt="{{ featured | mediaTitle }}"
         />
         <div class="overlay-left-buttons">
-          <button class="btn button play">
-            <ng-icon name="heroPlaySolid"></ng-icon>
-            Play
-          </button>
-          <button (click)="openInfo()" class="btn button info">
-            <ng-icon name="heroInformationCircle"></ng-icon>
-            More Info
-          </button>
+          <app-play-button></app-play-button>
+          <app-info-button (click)="openInfo(featured)"></app-info-button>
         </div>
       </div>
       <div class="overlay-right">

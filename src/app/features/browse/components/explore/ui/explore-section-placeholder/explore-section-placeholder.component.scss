@@ -1,0 +1,48 @@
+.placeholder {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 2;
+    user-select: none;
+
+    @media screen and (max-width: 900px) {
+        gap: 0.1rem;
+    }
+
+    &-items {
+        border-radius: 0.3rem;
+        display: flex;
+        align-items: center;
+        z-index: 3;
+        overflow-x: auto;
+        height: 12rem;
+        padding: 0 0 0 0.5rem;
+        overflow: hidden;
+
+        .item {
+            position: relative;
+            min-width: 16rem;
+            min-height: 9rem;
+            border-radius: 0.3rem;
+            background-color: #252525;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            animation-name: placeholder;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+
+            @media screen and (max-width: 900px) {
+                height: calc(10rem / 1.5);
+                width: calc(16rem / 1.5);
+            }
+
+            @media screen and (max-width: 500px) {
+                height: calc(10rem / 1.8);
+                width: calc(16rem / 1.8);
+            }
+        }
+    }
+}

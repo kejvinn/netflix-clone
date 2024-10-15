@@ -13,6 +13,7 @@ export interface Media {
   original_language: string;
   overview: string;
   release_date: string;
+  first_air_date: string;
   media_type: string;
   vote_average: number;
   video_url: string;

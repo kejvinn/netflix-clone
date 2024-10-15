@@ -5,8 +5,16 @@
 	min-height: 100vh;
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
-	gap: 3rem 0.2rem;
+	gap: 3rem 0.5rem;
 	align-content: start;
+
+	@media screen and (max-width: 900px) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media screen and (max-width: 500px) {
+		grid-template-columns: 1fr;
+	}
 
 	&-item {
 		position: relative;
@@ -18,7 +26,7 @@
 		overflow: hidden;
 		aspect-ratio: 16 / 9;
 		cursor: pointer;
-		transition: all 0.3s ease-in-out;
+		transition: transform 0.3s ease-in-out;
 		background-color: #000;
 
 		&:hover {
@@ -46,7 +54,7 @@
 			transform: translate(-50%, -50%);
 			z-index: 1;
 
-			@media screen and (max-width: var(--small)) {
+			@media screen and (max-width: 500px) {
 				font-size: 0.8rem;
 			}
 		}

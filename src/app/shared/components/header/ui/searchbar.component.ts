@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { SearchService } from '../../../../../features/search/services/search.service';
+import { SearchService } from '../../../../features/search/services/search.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -40,22 +40,22 @@ import { SearchService } from '../../../../../features/search/services/search.se
     <div class="search">
       <label
         class="search-label"
-        [@search]="searching ? 'openedLabel' : 'closedLabel'"
+        [@search]="searchService.searching() ? 'openedLabel' : 'closedLabel'"
         #searchLabel
       >
         <ng-icon
           class="search-icon"
           name="heroMagnifyingGlass"
-          (click)="toggleSearch()"
+          (click)="openSearch()"
         ></ng-icon>
         <input
           class="search-input"
           type="text"
-          [@search]="searching ? 'openedInput' : 'closedInput'"
+          [@search]="searchService.searching() ? 'openedInput' : 'closedInput'"
           (keyup.enter)="triggerSearch()"
           #searchInput
         />
-        @if (searching === true) {
+        @if (searchService.searching() === true) {
           <ng-icon
             name="heroXMark"
             class="search-icon"
@@ -66,7 +66,6 @@ import { SearchService } from '../../../../../features/search/services/search.se
     </div>
   `,
   styles: `
-    $medium: 700px;
     .search {
       display: flex;
       justify-content: flex-end;
@@ -74,17 +73,13 @@ import { SearchService } from '../../../../../features/search/services/search.se
       position: relative;
       grid-column: 3;
       &-label {
-        width: auto;
+        max-width: 280px;
         display: flex;
         justify-content: flex-end;
         gap: 0.5rem;
         ng-icon {
           height: 1.5rem;
           width: 1.5rem;
-          @media screen and (max-width: var(--medium)) {
-            height: 1rem;
-            width: 1rem;
-          }
         }
       }
       &-input {
@@ -107,14 +102,9 @@ import { SearchService } from '../../../../../features/search/services/search.se
 export class SearchbarComponent implements OnInit {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-  searching: boolean = false;
-
   searchService = inject(SearchService);
-
-  constructor(
-    private router: Router,
-    private location: Location,
-  ) {}
+  router = inject(Router);
+  location = inject(Location);
 
   ngOnInit(): void {
     fromEvent(this.searchInput.nativeElement, 'keyup')
@@ -124,26 +114,20 @@ export class SearchbarComponent implements OnInit {
         this.router.navigateByUrl('/search');
       });
   }
-  ngOnDestroy(): void {
-    this.closeSearch();
-  }
 
   triggerSearch() {
     this.searchService.search(this.searchInput.nativeElement.value);
   }
 
-  clearSearch() {
-    this.searchInput.nativeElement.value = '';
-    this.searchInput.nativeElement.focus();
-    this.triggerSearch();
-  }
   closeSearch() {
-    this.searching = false;
+    this.searchService.searching.set(false);
+    this.searchInput.nativeElement.value = '';
+    this.searchService.stopSearch();
     this.location.back();
   }
 
-  toggleSearch() {
-    this.searching = true;
+  openSearch() {
+    this.searchService.searching.set(true);
     this.router.navigateByUrl('/search');
   }
 }

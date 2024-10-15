@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-
-import { ExploreSectionComponent } from './explore-section/explore-section.component';
 import { ExploreSection } from '../../../../shared/models/explore-section.model';
 import { SingleService } from '../../../../shared/services/single.service';
 import { Media } from '../../../../shared/models/media.model';
+import { ExploreSectionComponent } from './ui/explore-section/explore-section.component';
 
 @Component({
   selector: 'app-explore',
@@ -32,13 +31,14 @@ import { Media } from '../../../../shared/models/media.model';
       flex-grow: 1;
       margin-top: -4rem;
       margin-bottom: 1.5rem;
-      @media screen and (max-width: var(--medium)) {
+
+      @media screen and (max-width: 900px) {
         padding: 0 0 0 2rem;
         margin-top: 0rem;
       }
-      @media screen and (max-width: var(--small)) {
+      @media screen and (max-width: 500px) {
         padding: 0 0 0 0.5rem;
-        margin-top: 0rem;
+        margin-top: 0.5rem;
       }
     }
   `,
@@ -47,9 +47,9 @@ export class ExploreComponent {
   sections: ExploreSection[] = [
     {
       title: 'Trending Today',
+      listType: 'trending',
       mediaType: 'all',
       period: 'day',
-      listType: 'trending',
     },
     {
       title: 'Trending This Week',

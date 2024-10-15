@@ -22,6 +22,9 @@ $netflix-clone-theme: mat.define-theme((color: (theme-type: dark,
 // that you are using.
 :root {
 	@include mat.all-component-themes($netflix-clone-theme);
+	--small: 500px;
+	--medium: 900px;
+	--blue: #3333ff
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -30,11 +33,6 @@ $netflix-clone-theme: mat.define-theme((color: (theme-type: dark,
 
 // Comment out the line below if you want to use the deprecated `color` inputs.
 // @include mat.color-variants-backwards-compatibility($netflix-clone-theme);
-
-:root {
-	--small: 500px;
-	--medium: 900px;
-}
 
 * {
 	font-family: "Inter", system-ui;
@@ -76,12 +74,12 @@ a {
 	border-radius: 100%;
 	cursor: pointer;
 
-	@media screen and (max-width: var(--medium)) {
+	@media screen and (max-width: 900px) {
 		height: 2rem;
 		width: 2rem;
 	}
 
-	@media screen and (max-width: var(--small)) {
+	@media screen and (max-width: 500px) {
 		height: 1.5rem;
 		width: 1.5rem;
 	}
@@ -90,12 +88,12 @@ a {
 		height: 1.5rem;
 		width: 1.5rem;
 
-		@media screen and (max-width: var(--medium)) {
+		@media screen and (max-width: 900px) {
 			height: 1rem;
 			width: 1rem;
 		}
 
-		@media screen and (max-width: var(--small)) {
+		@media screen and (max-width: 500px) {
 			height: 1rem;
 			width: 1rem;
 		}
@@ -121,4 +119,18 @@ app-root {
 	position: relative;
 	width: 100vw;
 	min-height: 100vh;
+}
+
+@keyframes placeholder {
+	0% {
+		background-color: #252525;
+	}
+
+	50% {
+		background-color: #434343;
+	}
+
+	100% {
+		background-color: #252525;
+	}
 }

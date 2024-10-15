@@ -33,13 +33,25 @@ import { Genre } from '../../../models/genre.model';
   styles: `
     .credits {
       padding: 0 3rem 3rem;
+      @media screen and (max-width: 500px) {
+        padding: 0 1rem 1rem;
+      }
       &-title {
         font-size: 1.5rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        @media screen and (max-width: 500px) {
+          font-size: 1.2rem;
+        }
       }
-      p {
+      .cast,
+      .genres {
         margin-bottom: 0.5rem;
+        @media screen and (max-width: 500px) {
+          span {
+            font-size: 0.8rem;
+          }
+        }
       }
     }
   `,
