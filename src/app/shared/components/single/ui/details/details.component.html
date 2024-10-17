@@ -15,31 +15,22 @@
     </p>
   </div>
   <div class="details-more">
-    <p class="cast">
-      <span style="color: #555">Cast:</span>
-      <span>
-        @for (member of cast | slice: 0 : 5; track member.id) {
-          {{ member.name }},
-        }
-      </span>
-      <span style="font-style: italic">more</span>
-    </p>
-    <p class="genres">
-      <span style="color: #555">Genres:</span>
-      <span>
-        @for (
-          genre of genres | slice: 0 : 5;
-          let last = $last;
-          track genre.id
-        ) {
-          @if (!last) {
-            {{ genre.name }},
-          } @else {
-            {{ genre.name }}.
-          }
-        }
-      </span>
-    </p>
+    @if (cast) {
+      <p class="cast">
+        <span style="color: #555">Cast:</span>
+        <span>
+          {{ cast }}
+        </span>
+      </p>
+    }
+    @if (genres) {
+      <p class="genres">
+        <span style="color: #555">Genres:</span>
+        <span>
+          {{ genres }}
+        </span>
+      </p>
+    }
     <p class="release"></p>
   </div>
 </div>

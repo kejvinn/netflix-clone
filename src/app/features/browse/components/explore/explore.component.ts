@@ -32,11 +32,11 @@ import { ExploreSectionComponent } from './ui/explore-section/explore-section.co
       margin-top: -4rem;
       margin-bottom: 1.5rem;
 
-      @media screen and (max-width: 900px) {
+      @media (max-width: 900px) {
         padding: 0 0 0 2rem;
         margin-top: 0rem;
       }
-      @media screen and (max-width: 500px) {
+      @media (max-width: 500px) {
         padding: 0 0 0 0.5rem;
         margin-top: 0.5rem;
       }

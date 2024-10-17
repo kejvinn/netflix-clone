@@ -32,6 +32,7 @@ import { TMDBService } from '../../../../../../shared/services/tmdb.service';
       <div class="explore-section-title">
         {{ title }}
       </div>
+
       @defer (on viewport) {
         <div class="explore-section-items">
           @if (items$ | async; as sectionItems) {
@@ -41,17 +42,21 @@ import { TMDBService } from '../../../../../../shared/services/tmdb.service';
                 free-mode="true"
                 momentum="false"
                 slides-per-view="auto"
-                centered-sides-bounds="true"
               >
                 @for (item of sectionItems; track item.id) {
                   <swiper-slide class="swiper-slide" #slide>
                     @defer (on viewport(slide)) {
                       <app-media-poster
                         alt="{{ item | mediaTitle }}"
-                        [backdrop]="item.backdrop_path | tmdbImage: 'w500'"
+                        [backdrop]="
+                          item.backdrop_path || item.poster_path
+                            | tmdbImage: 'w500'
+                        "
                         [logo]="item.logo_url | tmdbImage: 'w300'"
                         (click)="handleInfo(item)"
                       ></app-media-poster>
+                    } @placeholder {
+                      <div></div>
                     }
                   </swiper-slide>
                 }
@@ -79,6 +84,9 @@ export class ExploreSectionComponent implements OnInit {
   tmdbService = inject(TMDBService);
 
   ngOnInit() {
+    this.tmdbService
+      .getList(this.listType, this.mediaType, this?.period, true)
+      .subscribe((items) => console.log(items, this.title));
     this.items$ = this.tmdbService.getList(
       this.listType,
       this.mediaType,

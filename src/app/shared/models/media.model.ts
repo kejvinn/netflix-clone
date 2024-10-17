@@ -9,7 +9,7 @@ export interface Media {
   original_name: string;
   adult: boolean;
   backdrop_path: string;
-  poster_url: string;
+  poster_path: string;
   original_language: string;
   overview: string;
   release_date: string;

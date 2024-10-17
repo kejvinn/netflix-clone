@@ -9,7 +9,10 @@
               <ng-icon name="heroXMark"></ng-icon>
             </button>
             <app-overview
-              [backdrop]="single.backdrop_path | tmdbImage: 'original'"
+              [backdrop]="
+                single.backdrop_path || single.poster_path
+                  | tmdbImage: 'original'
+              "
               [logo]="single.logo_url | tmdbImage: 'original'"
               [alt]="single | mediaTitle"
               [tagline]="single.tagline"
@@ -18,35 +21,51 @@
               [releaseDate]="single | releaseDateFormat"
               [runtime]="single | runtimeFormat"
               [rating]="single.adult ? '16+' : 'E'"
-              [cast]="single.cast"
-              [genres]="single.genres"
+              [cast]="single.cast | mediaCast: 5"
+              [genres]="single.genres | mediaGenres"
               [overview]="single.overview"
             ></app-details>
 
-            <div class="recommendations">
-              @for (
-                rec of single.recommendations | slice: 0 : 15;
-                track rec.id
-              ) {
-                @defer {
-                  <app-recommendation
-                    (click)="openInfo(rec)"
-                    [backdrop]="rec.backdrop_path | tmdbImage: 'w500'"
-                    [logo]="rec.logo_url | tmdbImage: 'w200'"
-                    [alt]="rec | mediaTitle"
-                    [releaseDate]="rec | releaseDateFormat"
-                    [voteAverage]="rec.vote_average.toPrecision(2)"
-                    [rating]="rec.adult ? '+16' : 'E'"
-                    [overview]="rec.overview"
-                    (info)="openInfo($event)"
-                  ></app-recommendation>
-                }
-              }
-            </div>
+            @if (single.recommendations.length !== 0) {
+              <div class="recommendations">
+                <div class="recommendations-title">More Like This</div>
+                <div
+                  class="recommendations-items"
+                  [@expand]="expanded ? 'expanded' : 'collapsed'"
+                >
+                  @for (
+                    rec of single.recommendations | slice: 0 : 15;
+                    track rec.id
+                  ) {
+                    @defer {
+                      <app-recommendation
+                        (click)="openInfo(rec)"
+                        [backdrop]="rec.backdrop_path | tmdbImage: 'w500'"
+                        [logo]="rec.logo_url | tmdbImage: 'w200'"
+                        [alt]="rec | mediaTitle"
+                        [releaseDate]="rec | releaseDateFormat"
+                        [voteAverage]="rec.vote_average.toPrecision(2)"
+                        [rating]="rec.adult ? '+16' : 'E'"
+                        [overview]="rec.overview"
+                        (info)="openInfo($event)"
+                      ></app-recommendation>
+                    }
+                  }
+                </div>
+                <div class="recommendations-expand">
+                  <button class="btn button-circle" (click)="toggleExpanded()">
+                    <ng-icon
+                      [name]="expanded ? 'heroChevronUp' : 'heroChevronDown'"
+                    >
+                    </ng-icon>
+                  </button>
+                </div>
+              </div>
+            }
             <app-credits
               [title]="single | mediaTitle"
-              [cast]="single.cast"
-              [genres]="single.genres"
+              [cast]="single.cast | mediaCast: 10"
+              [genres]="single.genres | mediaGenres: 5"
             ></app-credits>
           </div>
         </div>

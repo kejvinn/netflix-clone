@@ -8,7 +8,6 @@
 		object-fit: cover;
 		position: absolute;
 		height: 100%;
-
 		z-index: 1;
 	}
 
@@ -35,12 +34,12 @@
 		padding-bottom: 10%;
 		padding-left: 4rem;
 
-		@media screen and (max-width: 900px) {
+		@media (max-width: 900px) {
 			padding-left: 1rem;
 			padding-bottom: 2rem;
 		}
 
-		@media screen and (max-width: 500px) {
+		@media (max-width: 500px) {
 			padding-left: 0.2rem;
 			padding-bottom: 0.5rem;
 		}
@@ -53,12 +52,13 @@
 			&-logo {
 				width: 20rem;
 				height: auto;
+				font-size: 4rem;
 
-				@media screen and (max-width: 900px) {
+				@media (max-width: 900px) {
 					width: 15rem;
 				}
 
-				@media screen and (max-width: 500px) {
+				@media (max-width: 500px) {
 					width: 7rem;
 				}
 			}
@@ -87,11 +87,11 @@
 			border-radius: 100%;
 			padding: 0.5rem;
 
-			@media screen and (max-width: 900px) {
+			@media (max-width: 900px) {
 				padding: 0.3rem;
 			}
 
-			@media screen and (max-width: 500px) {
+			@media (max-width: 500px) {
 				padding: 0.3rem;
 			}
 
@@ -107,13 +107,13 @@
 			height: 3rem;
 			width: 6rem;
 
-			@media screen and (max-width: 900px) {
+			@media (max-width: 900px) {
 				font-size: 14px;
 				height: 2.5rem;
 				width: 5rem;
 			}
 
-			@media screen and (max-width: 500px) {
+			@media (max-width: 500px) {
 				font-size: 12px;
 				height: 1.5rem;
 				width: 2.5rem;

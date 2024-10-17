@@ -42,7 +42,7 @@ export class FeaturedComponent {
 
   featured$: Observable<Media> = this.tmdbService.getFeaturedMedia(
     'all',
-    'day',
+    'week',
   );
 
   openInfo(featured: Media) {

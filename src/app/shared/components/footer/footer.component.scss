@@ -4,16 +4,17 @@
 	margin: 0 auto;
 	padding: 0 2rem;
 	background-color: #141414;
+	gap: 2rem;
 
-	@media screen and (max-width: 900px) {
+	@media (max-width: 900px) {
 		padding: 0 2rem;
 	}
 
-	@media screen and (max-width: 900px) {
+	@media (max-width: 900px) {
 		min-width: 500px;
 	}
 
-	@media screen and (max-width: 500px) {
+	@media (max-width: 500px) {
 		min-width: 300px;
 	}
 
@@ -23,7 +24,7 @@
 		padding: 1rem 0.5rem;
 		gap: 2.3rem;
 
-		@media screen and (max-width: 900px) {
+		@media (max-width: 900px) {
 			gap: 1.5rem;
 		}
 
@@ -36,7 +37,7 @@
 				height: 1.8rem;
 				width: 1.8rem;
 
-				@media screen and (max-width: 900px) {
+				@media (max-width: 900px) {
 					height: 1.5rem;
 					width: 1.5rem;
 				}
@@ -50,52 +51,37 @@
 		gap: 1rem;
 		grid-template-columns: repeat(4, 1fr);
 
-		@media screen and (max-width: 900px) {
+		@media (max-width: 900px) {
 			grid-template-columns: repeat(3, 1fr);
 			gap: 0.5rem;
 		}
 
-		@media screen and (max-width: 500px) {
+		@media (max-width: 500px) {
 			grid-template-columns: repeat(2, 1fr);
 			gap: 0.8rem;
 		}
 
-		a {
-			color: #888;
-
-			@media screen and (max-width: 900px) {
-				font-size: 0.8rem;
-			}
-
-			@media screen and (max-width: 500px) {
-				font-size: 0.6rem;
-			}
-		}
 	}
 
 	&-service_code {
-		color: #888;
 		padding: 0.5rem 1rem;
 		border: 1px solid #888;
-
-		@media screen and (max-width: 900px) {
-			font-size: 0.8rem;
-		}
-
-		@media screen and (max-width: 500px) {
-			font-size: 0.6rem;
-		}
 	}
 
 	&-signature {
 		margin: 2rem 0;
+	}
+
+	&-signature,
+	&-service_note,
+	&-nav a {
 		color: #888;
 
-		@media screen and (max-width: 900px) {
+		@media (max-width: 900px) {
 			font-size: 0.8rem;
 		}
 
-		@media screen and (max-width: 500px) {
+		@media (max-width: 500px) {
 			font-size: 0.6rem;
 		}
 	}

@@ -37,9 +37,12 @@ export class TMDBService {
     return this.http
       .get<{
         results: Media[];
-      }>(`${this.apiUrl}/trending/${mediaType}/${period}`)
+      }>(`${this.apiUrl}/trending/${mediaType}/${period}?language=en-US`)
       .pipe(
         map((data) => data?.results),
+        map((list: Media[]) =>
+          list.filter((media) => ['tv', 'movie'].includes(media.media_type)),
+        ),
         mergeMap((list: Media[]) =>
           iif(
             () => withLogos,
@@ -139,13 +142,32 @@ export class TMDBService {
     return this.http
       .get<{
         logos: ImageDto[];
-      }>(`${this.apiUrl}/${media.media_type}/${media.id}/images?language=en`)
+      }>(
+        `${this.apiUrl}/${media.media_type}/${media.id}/images?include_image_language=en%2C${media.original_language}%2Cnull`,
+      )
       .pipe(
         map((data) => {
           media.logo_url =
-            data.logos?.sort(
-              (a: ImageDto, b: ImageDto) => b.vote_average - a.vote_average,
-            )[0]?.file_path || '';
+            data.logos?.sort((a: ImageDto, b: ImageDto) => {
+              const getLangPriority = (iso: string | null) =>
+                iso === 'en'
+                  ? 1
+                  : iso === media.original_language
+                    ? 2
+                    : iso === null
+                      ? 3
+                      : 4;
+              const aLangPriority = getLangPriority(a.iso_639_1);
+
+              const bLangPriority = getLangPriority(b.iso_639_1);
+
+              if (getLangPriority(a.iso_639_1) !== bLangPriority) {
+                return aLangPriority - bLangPriority;
+              }
+
+              return b.vote_count - a.vote_count;
+            })[0]?.file_path || '';
+
           return media;
         }),
       );
@@ -155,7 +177,7 @@ export class TMDBService {
     return this.http
       .get<{
         cast: CastMember[];
-      }>(`${this.apiUrl}/${media.media_type}/${media.id}/credits?language=en`)
+      }>(`${this.apiUrl}/${media.media_type}/${media.id}/credits`)
       .pipe(
         map((data) => {
           media.cast = data.cast;
@@ -167,14 +189,12 @@ export class TMDBService {
     return this.http
       .get<{
         results: Media[];
-      }>(
-        `${this.apiUrl}/${media.media_type}/${media.id}/recommendations?language=en`,
-      )
+      }>(`${this.apiUrl}/${media.media_type}/${media.id}/recommendations`)
       .pipe(
         map((recs: { results: Media[] }) => recs.results),
         mergeMap((recs: Media[]) =>
           iif(
-            () => withLogos,
+            () => withLogos && recs.length !== 0,
             forkJoin(recs.map((media: Media) => this.setMediaLogo(media))),
             of(recs),
           ),

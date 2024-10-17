@@ -31,13 +31,13 @@ import { heroPlaySolid } from '@ng-icons/heroicons/solid';
       font-size: 1.5rem;
       border-radius: 0.3rem;
 
-      @media screen and (max-width: 900px) {
+      @media (max-width: 900px) {
         font-size: 1rem;
         height: 2.5rem;
         padding: 0rem 1rem;
       }
 
-      @media screen and (max-width: 500px) {
+      @media (max-width: 500px) {
         font-size: 0.8rem;
         height: 1.5rem;
         padding: 0rem 1rem;
@@ -48,12 +48,12 @@ import { heroPlaySolid } from '@ng-icons/heroicons/solid';
         width: 2.2rem;
         margin-right: 0.3rem;
 
-        @media screen and (max-width: 900px) {
+        @media (max-width: 900px) {
           height: 1rem;
           width: 1rem;
         }
 
-        @media screen and (max-width: 500px) {
+        @media (max-width: 500px) {
           height: 1rem;
           width: 1rem;
         }

@@ -5,7 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { state, style, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroMagnifyingGlass, heroXMark } from '@ng-icons/heroicons/outline';
 import { CommonModule } from '@angular/common';
@@ -24,22 +30,19 @@ import { SearchService } from '../../../../features/search/services/search.servi
       state(
         'openedLabel',
         style({
-          width: 'auto',
           border: '1px solid #fff',
-          padding: '0.2rem 0.2rem',
         }),
       ),
-      state('closedLabel', style({ width: 'auto', border: 'none' })),
-      state('openedInput', style({ width: 'auto' })),
+      state('closedLabel', style({ border: 'none' })),
+      state('openedInput', style({ width: '*' })),
       state('closedInput', style({ width: '0' })),
-      // transition('openedLabel <=> closedLabel', animate('0.5s ease')),
-      // transition('openedInput <=> closedInput', animate('0.5s ease')),
+      transition('openedInput <=> closedInput', [animate('0.3s ease-in-out')]),
     ]),
   ],
   template: `
     <div class="search">
-      <label
-        class="search-label"
+      <div
+        class="search-container"
         [@search]="searchService.searching() ? 'openedLabel' : 'closedLabel'"
         #searchLabel
       >
@@ -62,7 +65,7 @@ import { SearchService } from '../../../../features/search/services/search.servi
             (click)="closeSearch()"
           ></ng-icon>
         }
-      </label>
+      </div>
     </div>
   `,
   styles: `
@@ -72,11 +75,11 @@ import { SearchService } from '../../../../features/search/services/search.servi
       width: 100%;
       position: relative;
       grid-column: 3;
-      &-label {
-        max-width: 280px;
+      &-container {
         display: flex;
         justify-content: flex-end;
         gap: 0.5rem;
+        padding: 0.2rem 0.2rem;
         ng-icon {
           height: 1.5rem;
           width: 1.5rem;
@@ -124,10 +127,12 @@ export class SearchbarComponent implements OnInit {
     this.searchInput.nativeElement.value = '';
     this.searchService.stopSearch();
     this.location.back();
+    this.searchInput.nativeElement.blur();
   }
 
   openSearch() {
     this.searchService.searching.set(true);
+    this.searchInput.nativeElement.focus();
     this.router.navigateByUrl('/search');
   }
 }

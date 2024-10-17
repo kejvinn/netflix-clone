@@ -39,7 +39,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
       justify-content: center;
       width: 100%;
       height: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: inherit;
+      overflow: hidden;
 
       &-backdrop {
         width: 100%;
@@ -52,11 +54,17 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
         align-items: center;
         background-color: #141414;
         border-radius: inherit;
+        max-height: 100%;
       }
 
       &-logo {
         position: absolute;
-        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+        filter: drop-shadow(2px 2px 1px #000000);
+        text-shadow:
+          -1px -1px 0 rgba(0, 0, 0, 0.8),
+          1px -1px 0 rgba(0, 0, 0, 0.8),
+          -1px 1px 0 rgba(0, 0, 0, 0.8),
+          1px 1px 0 rgba(0, 0, 0, 0.8);
         top: 50%;
         left: 50%;
         max-width: 50%;
@@ -64,15 +72,20 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
         font-size: 1.5rem;
         transform: translate(-50%, -50%);
         z-index: 1;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
 
-        @media screen and (max-width: 500px) {
+        @media (max-width: 500px) {
           font-size: 0.8rem;
         }
       }
       &-placeholder {
+        border-radius: inherit;
         position: absolute;
         width: 16rem;
-        height: 10rem;
+        height: 9rem;
         animation-name: placeholder;
         animation-duration: 1.5s;
         animation-iteration-count: infinite;

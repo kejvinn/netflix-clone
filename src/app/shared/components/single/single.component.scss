@@ -34,11 +34,11 @@
     z-index: 11;
     border-radius: 0.5rem;
 
-    @media screen and (max-width: 34rem) {
+    @media (max-width: 34rem) {
         max-width: 34rem;
     }
 
-    @media screen and (max-width: 18rem) {
+    @media (max-width: 18rem) {
         padding: 5rem 0 5rem 0;
         max-width: 18rem;
     }
@@ -92,27 +92,49 @@
 
 
         .recommendations {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            justify-items: center;
-            gap: 1rem;
             padding: 3rem;
-            grid-column: span 3;
 
-            &>* {
-                max-width: 16rem;
+            &-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
             }
 
-            @media screen and (max-width: 900px) {
-                grid-template-columns: 1fr 1fr;
-                padding: 1rem;
-                gap: 0.5rem;
-            }
-
-            @media screen and (max-width: 550px) {
-                padding: 0.2rem;
-                grid-template-columns: 1fr;
+            &-items {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                justify-items: center;
                 gap: 1rem;
+                grid-column: span 3;
+                overflow: hidden;
+
+                &>* {
+                    max-width: 16rem;
+                }
+
+                @media (max-width: 900px) {
+                    grid-template-columns: 1fr 1fr;
+                    padding: 1rem;
+                    gap: 0.5rem;
+                }
+
+                @media (max-width: 550px) {
+                    padding: 0.2rem;
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                }
+            }
+
+            &-expand {
+                position: relative;
+                border-top: 3px solid #bbb;
+
+                button {
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    position: absolute;
+                }
             }
         }
 

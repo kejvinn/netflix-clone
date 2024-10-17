@@ -74,12 +74,12 @@ a {
 	border-radius: 100%;
 	cursor: pointer;
 
-	@media screen and (max-width: 900px) {
+	@media (max-width: 900px) {
 		height: 2rem;
 		width: 2rem;
 	}
 
-	@media screen and (max-width: 500px) {
+	@media (max-width: 500px) {
 		height: 1.5rem;
 		width: 1.5rem;
 	}
@@ -88,12 +88,12 @@ a {
 		height: 1.5rem;
 		width: 1.5rem;
 
-		@media screen and (max-width: 900px) {
+		@media (max-width: 900px) {
 			height: 1rem;
 			width: 1rem;
 		}
 
-		@media screen and (max-width: 500px) {
+		@media (max-width: 500px) {
 			height: 1rem;
 			width: 1rem;
 		}

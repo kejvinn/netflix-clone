@@ -15,6 +15,7 @@ export class SingleService {
 
   open(media: Media) {
     this.media.set(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.showModal.set(true);
 
     this.tmdb
@@ -29,7 +30,7 @@ export class SingleService {
       )
       .subscribe((media: Media) => {
         this.media.set(media);
-        console.log(this.media());
+        console.log(media);
       });
   }
   close() {

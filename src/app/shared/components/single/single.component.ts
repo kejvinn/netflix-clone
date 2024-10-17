@@ -1,6 +1,15 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, inject } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
+  heroChevronDown,
+  heroChevronUp,
   heroHandThumbUp,
   heroPlus,
   heroXMark,
@@ -18,6 +27,8 @@ import { RecommendationComponent } from './ui/recommendation/recommendation.comp
 import { DetailsComponent } from './ui/details/details.component';
 import { CreditsComponent } from './ui/credits.component';
 import { MediaTitlePipe } from '../../pipes/media-title.pipe';
+import { MediaCastPipe } from '../../pipes/media-cast.pipe';
+import { MediaGenresPipe } from '../../pipes/media-genres.pipe';
 
 @Component({
   selector: 'app-single',
@@ -34,19 +45,47 @@ import { MediaTitlePipe } from '../../pipes/media-title.pipe';
     RecommendationComponent,
     CreditsComponent,
     MediaTitlePipe,
+    MediaCastPipe,
+    MediaGenresPipe,
   ],
   providers: [
-    provideIcons({ heroXMark, heroPlaySolid, heroPlus, heroHandThumbUp }),
+    provideIcons({
+      heroXMark,
+      heroPlaySolid,
+      heroPlus,
+      heroHandThumbUp,
+      heroChevronUp,
+      heroChevronDown,
+    }),
   ],
   templateUrl: './single.component.html',
   styleUrl: './single.component.scss',
+  animations: [
+    trigger('expand', [
+      state(
+        'expanded',
+        style({
+          height: '*',
+        }),
+      ),
+      state(
+        'collapsed',
+        style({
+          height: '62rem',
+        }),
+      ),
+      transition('collapsed <=> expanded', [animate('0.3s ease-in-out')]),
+    ]),
+  ],
 })
 export class SingleComponent {
+  expanded = false;
   singleService = inject(SingleService);
 
+  toggleExpanded() {
+    this.expanded = !this.expanded;
+  }
   openInfo(media: Media) {
-    console.log(media);
-
     this.singleService.open(media);
   }
 }
