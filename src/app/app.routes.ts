@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/login/login.component';
-import { AuthGuardService } from './shared/services/auth-guard.service';
-import { GuestGuardService } from './shared/services/guest-guard.service';
+import { authGuard } from './shared/guards/auth.guard';
+import { guestGuard } from './shared/guards/guest.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [GuestGuardService],
+    canActivate: [guestGuard],
   },
 
   {
@@ -16,7 +16,7 @@ export const routes: Routes = [
       import('./features/browse/browse.component').then(
         (m) => m.BrowseComponent,
       ),
-    canActivate: [AuthGuardService],
+    canActivate: [authGuard],
   },
   {
     path: 'search',
@@ -24,7 +24,7 @@ export const routes: Routes = [
       import('./features/search/search.component').then(
         (m) => m.SearchComponent,
       ),
-    canActivate: [AuthGuardService],
+    canActivate: [authGuard],
   },
 
   { path: '**', redirectTo: 'login' },
